@@ -38,7 +38,7 @@ end
 class Base
   BINARIO = 2
   OCTAL = 8
-  HEXADECIMAL = 10
+  HEXADECIMAL = 16
 
   def self.binario
     BINARIO

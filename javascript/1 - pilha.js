@@ -45,7 +45,9 @@ function baseConverter(number, pilha, base) {
   return pilha
 }
 
-
+// fila é lifo ou filo 
+// ultimo que entra é o primeiro que sai
+// ou primeiro que entra é o ultimo que sai
 
 const p = new Pilha()
 
