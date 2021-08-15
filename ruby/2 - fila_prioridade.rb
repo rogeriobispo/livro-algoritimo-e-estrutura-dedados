@@ -6,7 +6,7 @@ class Element
     @prioridade = prioridade
   end
 
-  def to_string
+  def to_s
     "Valor: #{value} - Prioridade: #{prioridade}"
   end
 end
@@ -54,7 +54,7 @@ class FilaPrioridade
 
   def imprimir
     @fila.each do |element|
-      puts element.to_string
+      puts element.to_s
     end
   end
 end
