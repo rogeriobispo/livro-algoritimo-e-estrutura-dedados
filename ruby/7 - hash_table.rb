@@ -170,13 +170,34 @@ class HashTable
       
       if current.value.key == key
         @table[position].remove(key)
-        if table[position].empty?
+        if @table[position].empty?
           @table[position] = nil
         end
         return true
       end
     end
     return false
+  end
+
+  def get(key)
+    position = lose_lose_hash_code(key)
+    unless @table[position].nil? 
+      current = @table[position].head
+
+      while current.next
+        if current.value.key == key
+          return current.value.value
+        end
+
+        current = current.next
+      end
+
+      if current.value.key == key
+        return "[#{current.value.key}, #{current.value.value}]"
+      end
+    end
+
+    return nil
   end
 
   def print
@@ -216,6 +237,8 @@ table.put("Nathan", 12)
 table.put("Ralph", 13)
 table.remove("Donnie")
 table.remove("Mindy")
+table.remove("Sue")
+puts table.get("Gandalf")
 table.print()
 
 
