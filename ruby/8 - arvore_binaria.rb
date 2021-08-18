@@ -44,14 +44,19 @@ class ArvoreBinaria
     return find_max_node(@root)
   end
 
-  def pre_order_transversal
+  def order_transversal(block)
+    print "Ordem Transversal: "
+    transversal_node_order(@root, block)
   end
 
-  def post_order_transversal
+  def pre_order_transversal(block)
+    print "Pre Ordem Transversal: "
+    pre_order_transversal_node(@root, block)
   end
 
-  def transversal_node_order(node, block)
-    transversal_node_order(node, block)
+  def post_order_transversal(block)
+    print "Pos Ordem Transversal: "
+    post_order_transversal_node(@root, block)
   end
 
   private
@@ -134,6 +139,27 @@ class ArvoreBinaria
   end
 
   def transversal_node_order(node, block)
+    if node
+      transversal_node_order(node.left, block)
+      block.call(node)
+      transversal_node_order(node.right, block)
+    end
+  end
+
+  def pre_order_transversal_node(node, block)
+    if node
+      block.call(node)
+      transversal_node_order(node.left, block)
+      transversal_node_order(node.right, block)
+    end
+  end
+
+  def post_order_transversal_node(node, block)
+    if node
+      transversal_node_order(node.left, block)
+      transversal_node_order(node.right, block)
+      block.call(node)
+    end
   end
 end
 
@@ -143,7 +169,11 @@ arvore.insert(10)
 arvore.insert(5)
 arvore.insert(15)
 arvore.insert(2)
-puts arvore.buscar(15)
+# puts arvore.buscar(15)
 # arvore.remover(2)
-puts arvore.min
-puts arvore.max
+# puts arvore.min
+# puts arvore.max
+block = lambda { |node| print "#{node.value} " }
+arvore.order_transversal(block)
+arvore.pre_order_transversal(block)
+arvore.post_order_transversal(block)
