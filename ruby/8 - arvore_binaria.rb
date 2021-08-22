@@ -15,6 +15,8 @@ end
 
 
 class ArvoreBinaria
+  attr_reader :root
+
   def initialize
     @root = nil
   end
@@ -59,7 +61,24 @@ class ArvoreBinaria
     post_order_transversal_node(@root, block)
   end
 
+  def height
+    height_left = 0
+    height_right = 0
+    return height_node(@root, height_left, height_right)
+  end
+
   private
+
+  def height_node(node, left, right)
+    if node.left
+      left = height_node(node.left, left + 1 , right)
+    end
+    if node.right
+      right = height_node(node.right, left , right + 1) 
+    end
+    
+    return [left, right].max
+  end
 
   def remove_node(current_node, value)
     return false if current_node.nil?
@@ -165,15 +184,12 @@ end
 
 
 arvore = ArvoreBinaria.new
-arvore.insert(10)
-arvore.insert(5)
-arvore.insert(15)
+arvore.insert(1)
 arvore.insert(2)
-# puts arvore.buscar(15)
-# arvore.remover(2)
-# puts arvore.min
-# puts arvore.max
-block = lambda { |node| print "#{node.value} " }
+arvore.insert(5)
+arvore.insert(6)
+arvore.insert(3)
+arvore.insert(4)
+puts "Profundidade: #{arvore.height}"
+block = lambda {|node| puts node.value}
 arvore.order_transversal(block)
-arvore.pre_order_transversal(block)
-arvore.post_order_transversal(block)
